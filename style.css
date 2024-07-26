@@ -1,0 +1,57 @@
+body {
+    background-color: black;
+}
+
+* {
+    color: white;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+.book {
+    background-color: rgb(65, 64, 64);
+
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+button {
+    color: black;
+}
+
+.add {
+    font-size: larger;
+    width: 100%;
+    align-self: center;
+    margin-bottom: 24px;
+}
+
+
+dialog, input {
+    background-color: gray;
+}
+
+[aria-label = 'close'] {
+    float: right;
+}
+
+form {
+    align-items: center;
+}
+
+.buttonbox {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 15px;
+}
+
+fieldset {
+    border: none;
+}
