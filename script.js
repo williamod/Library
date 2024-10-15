@@ -1,69 +1,58 @@
-const myLibrary = [];
-
-function Book (title, author, read) {
-    this.title = title;
-    this.author = author;
-    this.read = read;
-    this.pos = myLibrary.length + 1
-
-}
-
-function AddBookToLibrary(book) {
-    myLibrary.push(book)
-}
-
-function ConstructCard(id) {
-
-    const newBook = document.createElement('div')
-    newBook.className = 'book'
-    newBook.setAttribute('id', id)
-    
-    const newTitle = document.createElement('div')
-    newTitle.className = 'title'
-    newBook.appendChild(newTitle)
-
-    const newAuthor = document.createElement('div')
-    newAuthor.className = 'author'
-    newBook.appendChild(newAuthor)
-
-    const newRead = document.createElement('div')
-    newRead.className = 'read'
-    newBook.appendChild(newRead)
-
-    const newPos = document.createElement('div')
-    newPos.className = 'pos'
-    newBook.appendChild(newPos)  
-
-    const newButton = document.createElement('button')
-    newButton.className = 'delete'
-    newButton.innerText = 'Delete'
-    newButton.onclick = () => {
-        document.querySelector('.delete').parentElement.remove()
-        myLibrary.splice(id, id)
+class Book {
+    constructor(title, author, read) {
+        this.title = title;
+        this.author = author;
+        this.read = read;
     }
-    newBook.appendChild(newButton)
-
-    const container = document.querySelector('.list')
-    container.appendChild(newBook)
+    
 }
 
-function FillInfo(i) {
-    const info = myLibrary[i]
-    const book = document.getElementById(i)
-    book.children[0].innerText = info['title']
-    book.children[1].innerText = info['author']
-    book.children[2].innerText = info['read']
-    book.children[3].innerText = i
+class Library {
+    constructor() {}
+
+    createBook() {
+        const newBook = document.createElement('div');
+        newBook.className = 'book';
+
+        const newTitle = document.createElement('div')
+        newTitle.className = 'title'
+        newBook.appendChild(newTitle)
+
+        const newAuthor = document.createElement('div')
+        newAuthor.className = 'author'
+        newBook.appendChild(newAuthor)
+
+        const newRead = document.createElement('div')
+        newRead.className = 'read'
+        newBook.appendChild(newRead)
+
+        const newButton = document.createElement('button')
+        newButton.className = 'delete'
+        newButton.innerText = 'Delete'
+        newButton.onclick = () => {
+            newButton.parentElement.remove()
+        }
+        newBook.appendChild(newButton)
+    
+        const container = document.querySelector('.list')
+        container.appendChild(newBook)
+
+        return newBook
+    }
+
+    fillInfo(container, info) {
+        container.children[0].innerText = info['title']
+        container.children[1].innerText = info['author']
+        container.children[2].innerText = info['read']
+
+    }
+
+    
 }
 
-function DisplayBooks(i) {
-    ConstructCard(i);
-    FillInfo(i); 
-}
+const library = new Library()
 
 //BUTTON BEHAVIOR
-document.querySelector('.delete')
-
 document.getElementById('close').onclick = () => {
     document.getElementById('myform').reset();
     document.querySelector('dialog').close();
@@ -90,20 +79,8 @@ document.getElementById('myform').addEventListener('submit', (event) => {
     document.querySelector('dialog').close();
 
     const book = new Book(formData['title'], formData['author'], formData['read'].toString());
-    AddBookToLibrary(book);
-
-    const finalbook = myLibrary[myLibrary.length - 1];
-    const finalIndex = myLibrary.lastIndexOf(myLibrary[myLibrary.length - 1])
-
-    DisplayBooks(finalIndex)
-
-
-
-
-
-    console.log(formData);
-    console.log(myLibrary);
-
+    const card = library.createBook()
+    library.fillInfo(card, book)
 });
 
 
